@@ -1,0 +1,117 @@
+/* style.css  –  cool “blue‑sky” theme */
+
+/* ===== CSS variables for the sky palette ===== */
+:root {
+  --sky-50:  #f0f8ff;
+  --sky-100: #e0f3ff;
+  --sky-200: #b9e2ff;
+  --sky-300: #87cefa;
+  --sky-400: #54b8f8;
+  --sky-500: #2d9ff4;
+  --sky-600: #1c8ae6;
+  --sky-700: #176ddb;
+  --sky-800: #155bbd;
+  --white:   #ffffff;
+  --shadow:  0 4px 8px rgba(0,0,0,.12);
+}
+
+/* ===== Reset & typography ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ===== Base layout ===== */
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--sky-300) 0%, var(--sky-500) 100%);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+/* ===== Header ===== */
+header {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+/* ===== Buttons ===== */
+button {
+  background: var(--white);
+  color: var(--sky-700);
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: var(--sky-100);
+}
+
+/* ===== Sections / “cards” ===== */
+section {
+  width: 100%;
+  max-width: 720px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+/* ===== Form layout ===== */
+.token-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.token-input {
+  flex: 1 1 200px;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  background: var(--white);
+}
+
+/* ===== Output box ===== */
+pre {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  color: var(--white);
+}

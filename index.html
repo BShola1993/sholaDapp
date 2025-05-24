@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liquidity Pool Interface</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ====== Wallet / Connection ====== -->
+  <header>
+    <button id="connectButton">Connect Wallet</button>
+    <button id="balanceButton">Get Wallet Balance</button>
+  </header>
+
+  <!-- ====== Add Liquidity ====== -->
+  <section id="addLiquidity" aria-labelledby="add-liquidity-heading">
+    <h2 id="add-liquidity-heading">Add Liquidity</h2>
+
+    <div class="token-inputs">
+      <!-- Token A -->
+      <div class="token-input">
+        <label for="tokenASelect">Token A</label>
+        <select id="tokenASelect">
+          <option value="ETH">ETH</option>
+          <option value="USDC">USDC</option>
+          <option value="DAI">DAI</option>
+        </select>
+        <input id="tokenAAmount" type="number" placeholder="0.0" step="any" />
+      </div>
+
+      <!-- Token B -->
+      <div class="token-input">
+        <label for="tokenBSelect">Token B</label>
+        <select id="tokenBSelect">
+          <option value="USDC">USDC</option>
+          <option value="ETH">ETH</option>
+          <option value="DAI">DAI</option>
+        </select>
+        <input id="tokenBAmount" type="number" placeholder="0.0" step="any" />
+      </div>
+    </div>
+    <label>Lower price (US$)</label> <input id="lower" type="number">
+<label>Upper price (US$)</label> <input id="upper" type="number">
+<button id="addLiquidityButton">Add Liquidity</button>
+
+  </section>
+
+  <!-- ====== Remove Liquidity ====== -->
+  <section id="removeLiquidity" aria-labelledby="remove-liquidity-heading">
+    <h2 id="remove-liquidity-heading">Remove Liquidity</h2>
+    <label for="lpAmount">LP Tokens Amount</label>
+    <input id="lpAmount" type="number" placeholder="0.0" step="any" />
+    <button id="removeLiquidityButton">Remove Liquidity</button>
+  </section>
+
+  <!-- ====== Fees ====== -->
+  <section id="fees" aria-labelledby="fees-heading">
+    <h2 id="fees-heading">Fees</h2>
+    <button id="earnFeesButton">Show Earned Fees</button>
+    <button id="collectFeesButton">Collect Fees</button>
+    <p id="feesOutput"></p>
+    <br><br><br>
+    <button id="rebalanceButton">Rebalance Range</button>
+
+  </section>
+
+  <!-- ====== Pool Details ====== -->
+  <section id="poolInfo" aria-labelledby="pool-details-heading">
+    <h2 id="pool-details-heading">Pool Details</h2>
+    <button id="getPoolInfoButton">Get Pool Info</button>
+    <pre id="poolInfoOutput"></pre>
+  </section>
+
+  <!-- ====== Scripts ====== -->
+  <!-- constants‑js.js is imported inside sol.js, so this extra tag is optional -->
+  <script type="module" src="./constants-js.js"></script>
+  <script type="module" src="./sol.js"></script>
+</body>
+</html>
