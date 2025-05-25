@@ -10,23 +10,24 @@
 
   import { sepolia } from "https://esm.sh/viem/chains";
   import { abi, contractAddress } from "./constants-js.js";
+  import { parseUnits } from "https://esm.sh/viem";
+
 
   /* ---------- DOM Elements ---------- */
   const connectButton       =  document.getElementById("connectButton");
   const balanceButton       =  document.getElementById("balanceButton");
   const addLiquidityButton  =  document.getElementById("addLiquidityButton");
   const removeLiquidityButton = document.getElementById("removeLiquidityButton");
-  const poolInfoButton      =  document.getElementById("getPoolInfoButton");
-  const rebalances           = document.getElementById("rebalanceButton")
+  const poolInfoButton     =   document.getElementById("getPoolInfoButton");
+  const rebalances         =   document.getElementById("rebalanceButton");
   const earnFeesButton     =   document.getElementById("earnFeesButton");
   const collectFeesButton  =   document.getElementById("collectFeesButton");
   const feesOutput         =   document.getElementById("feesOutput");
-  const showMyPosition    =    document.getElementById("showMyPosition");
-  const tokenASelect   =      document.getElementById("tokenASelect");
-  const tokenAAmount   = document.getElementById("tokenAAmount");
-  const tokenBAmount   = document.getElementById("tokenBAmount");
-  const lpAmountInput  = document.getElementById("lpAmount");
-  const poolInfoOutput = document.getElementById("poolInfoOutput");
+  const tokenASelect       =   document.getElementById("tokenASelect");
+  const tokenAAmount       =   document.getElementById("tokenAAmount");
+  const tokenBAmount       =   document.getElementById("tokenBAmount");
+  const lpAmountInput      =   document.getElementById("lpAmount");
+  const poolInfoOutput     =   document.getElementById("poolInfoOutput");
 
   /* ---------- Clients & Globals ---------- */
   const publicClient = createPublicClient({ chain: sepolia, transport: http() });
@@ -113,18 +114,29 @@ async function collectFees() {
 
 // rebalance
 async function rebalance() {
-  const newLower = BigInt(prompt("new lower (USD×1e8)"));
-  const newUpper = BigInt(prompt("new upper (USD×1e8)"));
+  // 1️⃣  Ask for prices in ordinary human format (e.g. 1000.25)
+  const lowerStr = prompt("New lower price ");
+  if (lowerStr === null) return;          // user cancelled
+
+  const upperStr = prompt("New upper price");
+  if (upperStr === null) return;
+
+  // 2️⃣  Convert: 8-decimals ⇒ uint64
+  const newLower = parseUnits(lowerStr, 8); // returns BigInt
+  const newUpper = parseUnits(upperStr, 8);
+
+  // 3️⃣  Send the tx
   const txHash = await walletClient.writeContract({
-    account:account,
+    account,
     address: contractAddress,
     abi,
     functionName: "rebalanceGlobal",
     args: [newLower, newUpper],
   });
+
   await publicClient.waitForTransactionReceipt({ hash: txHash });
 }
-document.getElementById("rebalanceButton").addEventListener("click", rebalance);
+
 
   /* ---------- Remove Liquidity ---------- */
   async function removeLiquidity() {
@@ -218,7 +230,5 @@ async function showPoolInfo() {
   poolInfoButton.addEventListener("click", showPoolInfo);
   earnFeesButton.addEventListener("click",showEarnedFees) 
   collectFeesButton.addEventListener("click",collectFees)
-  rebalances.addEventListener("click", rebalance)
-  
-  
+  rebalances.addEventListener("click", rebalance);
 
